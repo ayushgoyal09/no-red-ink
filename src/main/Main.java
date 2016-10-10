@@ -3,7 +3,10 @@ package main;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.apache.commons.csv.CSVFormat;
@@ -13,6 +16,7 @@ public class Main {
 
 	public static void main(String ar[]) {
 		List<Questions> questionsList = new ArrayList<>();
+		Map<String,String> question_strand_map = new HashMap<>();
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter number of questions");
@@ -41,6 +45,23 @@ public class Main {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+		
+		for (Questions q : questionsList){
+			question_strand_map.put("question "+q.getQuestionId(), q.getStrandId());
+		}
+		
+		System.out.println(question_strand_map);
+		
+		//Randomly select 1 or 2.
+		Random random = new Random();
+		int pick = random.nextInt()%2==0?1:2;
+		
+		for(int i=1;i<=questions;i++){
+			List<String> keys = new ArrayList<>(question_strand_map.keySet());
+			String randomKey = keys.get(random.nextInt(keys.size()));
+			String val = question_strand_map.get(randomKey);
+			
 		}
 		
 		
