@@ -17,6 +17,7 @@ public class Main {
 	public static void main(String ar[]) {
 		List<Questions> questionsList = new ArrayList<>();
 		Map<String,String> question_strand_map = new HashMap<>();
+		List<String> outputQuestion=new ArrayList<>();
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter number of questions");
@@ -57,14 +58,19 @@ public class Main {
 		Random random = new Random();
 		int pick = random.nextInt()%2==0?1:2;
 		
+		String lastPick = "1";
+		
 		for(int i=1;i<=questions;i++){
 			List<String> keys = new ArrayList<>(question_strand_map.keySet());
 			String randomKey = keys.get(random.nextInt(keys.size()));
 			String val = question_strand_map.get(randomKey);
-			
+			String last = val;
+			while(val == lastPick)
+				val = question_strand_map.get(randomKey);
+			outputQuestion.add(val);
 		}
 		
-		
+		System.out.println("List of questions: "+outputQuestion);
 
 	}
 
